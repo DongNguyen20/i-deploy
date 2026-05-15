@@ -1,3 +1,14 @@
 spring:
   application:
     name: myapp
+server:
+  port: 8089
+
+management:
+  endpoint:
+    web:
+      exposure:
+        include: "*"
+    prometheus:
+      enabled: true
+
