@@ -1,7 +1,7 @@
 DO:
 ----
 
-
+# I. BASIC
 **1.Create** `dockerfile`
 
 ```dockerfile
@@ -113,6 +113,31 @@ pipeline {
     }
 }
 ```
+----
 
+# II. MIDDLE
 
+1.**Spring Actuator , Micro Prometheus**
 
+_**Spring Actuator là một module trong Spring Boot giúp giám sát và quản lý ứng dụng trong môi trường production.**_
+
+Chức năng chính:
+
+- Cung cấp các REST endpoints để kiểm tra trạng thái ứng dụng
+- Hiển thị metrics (số liệu) như memory, CPU, threads
+- Kiểm tra health của ứng dụng và các dependency (DB, Redis, Kafka...)
+- Loggers management (thay đổi log level runtime)
+- Beans, mappings, env info
+- Shutdown ứng dụng qua HTTP
+
+_**Micrometer là thư viện metrics facade (giống như SLF4J cho logging) cho JVM-based applications.**_
+
+_**Prometheus là hệ thống monitoring & alerting mã nguồn mở.**_
+
+Luồng hoạt động:
+`Spring App → Micrometer (thu thập metrics) → /actuator/prometheus endpoint → Prometheus (scrape) → Grafana (dashboard)`
+
+Thành phần	Vai trò
+Spring Actuator	Cung cấp endpoints chứa dữ liệu
+Micrometer	Framework đo lường, expose metrics dạng Prometheus format
+Micrometer Prometheus	Registry kết nối Micrometer với Prometheus
